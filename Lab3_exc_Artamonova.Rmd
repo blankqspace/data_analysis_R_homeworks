@@ -1,0 +1,111 @@
+---
+title: "Lab3_exc"
+output: html_document
+date: "2025-01-27"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r dataload}
+library("tidyverse")
+heroes <- read_csv("https://raw.githubusercontent.com/Pozdniakov/tidy_stats/master/data/heroes_information.csv",
+                   na = c("-", "-99"))
+powers <- read_csv("https://raw.githubusercontent.com/Pozdniakov/tidy_stats/master/data/super_hero_powers.csv")
+str(powers)
+```
+
+## Unique values
+С помощью функции distinct() выведите уникальные значения по колонке Eye color.
+
+```{r unique}
+heroes %>%
+  distinct(`Eye color`) %>%
+  filter(!is.na(`Eye color`))
+```
+
+## Summarize
+
+В датасете `heroes` посчитайте средний пост по полу.
+
+```{r ex20_summarize}
+
+heroes %>%
+  group_by(Gender) %>%
+  filter(!is.na(Gender)) %>%
+  summarise(mean_height = mean(Height, na.rm = TRUE))
+
+```
+
+## Join
+
+Создайте тиббл web_creators, в котором будут супергерои, которые могут плести паутину, т.е. у них стоит TRUE в колонке Web Creation в тиббле powers.
+
+```{r ex20_join}
+
+web_creators <- powers %>%
+  filter(`Web Creation` == TRUE) %>%
+  select(hero_names) %>%
+  left_join(heroes, by = c("hero_names" = "name"))
+head(web_creators)
+
+```
+
+Найдите всех супергероев, которые присутствуют в heroes, но отсутствуют в powers. Ответом должен быть строковый вектор с именами супергероев.
+
+```{r anti_join}
+
+missing_in_powers <- heroes %>%
+  anti_join(powers, by = c("name" = "hero_names"))
+
+missing_heroes_vector <- missing_in_powers %>%
+  pull(name) %>%
+  as.character()
+
+missing_heroes_vector
+```
+
+## Visualizations  
+
+Создайте диаграмму рассеяния для датасета heroes, для которой координаты по оси x будут взяты из колонки Height, а координаты по оси y — из колонки Weight.
+
+Предварительно удалите с графика (=из датафрейма) все экстремальные значения, для которых Weight больше или равен 700 или Height больше или равен 400. 
+
+Раскрасьте точки в зависимости от Gender, сделайте их полупрозрачными (параметр alpha = 0.6).
+
+Разделите график (с помощью facet_wrap()) на три: для "DC Comics","Marvel Comics" и всех остальных.
+
+```{r}
+
+heroes %>%
+  distinct(`Publisher`) %>%
+  filter(!is.na(Publisher))
+
+```
+
+```{r}
+heroes %>%
+  filter(
+    !is.na(Height),
+    !is.na(Weight), 
+    !is.na(Gender),
+    !is.na(Publisher),
+    Weight < 700, 
+    Height < 400
+  ) %>%
+  mutate(Publisher_group = case_when(
+    Publisher == "DC Comics" ~ "DC Comics",
+    Publisher == "Marvel Comics" ~ "Marvel Comics",
+    TRUE ~ "Other"
+  )) %>%
+  ggplot(aes(x = Height, y = Weight, color = Gender)) +
+  geom_point(alpha = 0.6) +
+  facet_wrap(~ Publisher_group) +
+  labs(
+    title = "Зависимость веса от роста супергероев по полу и издательству",
+    x = "Рост (см)",
+    y = "Вес (кг)"
+  ) +
+  theme_classic()
+```
