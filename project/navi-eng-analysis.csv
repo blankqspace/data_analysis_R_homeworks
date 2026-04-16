@@ -1,0 +1,102 @@
+﻿id,navi,en,target_verb,role,navi_expressed,en_expressed
+1,Aylì'u ngian nì'it skepek lu.,"You still sound a bit too formal, though.",skepek lu,agent,1,1
+2,"Zìsìt amrr ftolia ohe, slä zene fko nivume nìtxan.",I studied for five years but there is much to learn.,ftolia,agent,1,1
+3,"Zìsìt amrr ftolia ohe, slä zene fko nivume nìtxan.",I studied for five years but there is much to learn.,nivume,agent,1,0
+4,"Zìsìt amrr ftolia ohe, slä zene fko nivume nìtxan.",I studied for five years but there is much to learn.,nivume,patient,0,1
+5,Hu nawma sa'nok tivul ngeyä tirea.,May your spirit run with the Great Mother.,tivul,agent,1,1
+6," Ma sempul, oel ngati kameie.","Father, I see you.",kameie,agent,1,1
+7," Ma sempul, oel ngati kameie.","Father, I see you.",kameie,patient,1,1
+8,"Oeru txoa livu, ma oeyä tsmukan.","Forgive me, my brother.",txoa livu,patient,1,1
+9,Fìketuwongti oel stìyeftxaw.,I will look at this alien.,stìyeftxaw,agent,1,1
+10,Fìketuwongti oel stìyeftxaw.,I will look at this alien.,stìyeftxaw,patient,1,1
+11,"Ma 'ite, awngeyä fya'ori zene nga sänume sivi poru… fte tsivun pivlltxe sì tivìran na ayoeng.","My daughter, you will teach him our way… to speak and walk as we do.",sänume sivi,agent,1,1
+12,"Ma 'ite, awngeyä fya'ori zene nga sänume sivi poru… fte tsivun pivlltxe sì tivìran na ayoeng.","My daughter, you will teach him our way… to speak and walk as we do.",sänume sivi,patient,1,1
+13,Sevin nìtxan lu aynga nang.,You are so pretty.,lu,agent,1,1
+14,Ngenga 'itan Omatikayaä luyu set.,You are now a son of the Omaticaya.,luyu,agent,0,1
+15,Na'viyä luyu hapxì.,You are part of The People.,luyu,patient,0,1
+16,Tsampongut Tsu'teyìl iveyk.,Tsu'tey will lead the war party.,iveyk,agent,1,1
+17,Tsampongut Tsu'teyìl iveyk.,Tsu'tey will lead the war party.,iveyk,patient,1,1
+18,Tarontswot peyä frapol sweri.,Everyone praises his hunting ability.,sweri,agent,1,1
+19,Tarontswot peyä frapol sweri.,Everyone praises his hunting ability.,sweri,patient,1,1
+20,Pori oe nalsteng.,I feel compassion for him.,nalsteng,agent,1,1
+21,Nga za’u nìltsan ne nari.,You look good.,za'u,agent,1,1
+22,Po za’u nìfe’ ne nari.,She looks bad.,za'u,agent,1,1
+23,Fìsyuve za’u nìfe’ ne ftxì.,This food tastes bad.,za'u,agent,1,1
+24,Nga za’u nìfpxamo ne mikyun.,You sound terrible.,za'u,agent,1,1
+25,Mokriri kempe lolen?,What happened to your voice?,lolen,agent,1,1
+26,Plltxe Sawtute fa aylì’fya leketengsyon.,Humans speak a variety of languages.,plltxe,agent,1,1
+27,Plltxe Sawtute fa aylì’fya leketengsyon.,Humans speak a variety of languages.,plltxe,patient,1,1
+28,"Pori sa’nok tìmerkup, ’efu oe rayl.","His mother just died, I feel bad for him.",tìmerkup,agent,1,1
+29,"Pori sa’nok tìmerkup, ’efu oe rayl.","His mother just died, I feel bad for him.",efu,agent,1,1
+30,Eyweveng lu lornusrr.,Pandora is radiant.,lu,agent,1,1
+31,Fìtìngäzìkìri ’efu po kxäl; pori tsa’u ke tsranten kaw’it.,"She’s apathetic about this problem, it doesn’t matter to her at all.",efu,agent,1,1
+32,Fìtìngäzìkìri ’efu po kxäl; pori tsa’u ke tsranten kaw’it.,"She’s apathetic about this problem, it doesn’t matter to her at all.",tsrant,agent,1,1
+33,Tìkxäl lu peu?,What is apathy?,lu,agent,1,1
+34,Lu tskxepay a mì te’lan sì kxitx a mì eltu.,It’s ice in the heart and a death in the brain.,lu,agent,0,1
+35," Lu ngaru ’eveng apukap, slä smon oer fota pum amrr nì’aw.","You have six children, but I only know five of them.",lu,agent,1,1
+36," Lu ngaru ’eveng apukap, slä smon oer fota pum amrr nì’aw.","You have six children, but I only know five of them.",smon,agent,1,1
+37," Lu ngaru ’eveng apukap, slä smon oer fota pum amrr nì’aw.","You have six children, but I only know five of them.",smon,patient,1,1
+38,Na’viyä luyu hapxì.,You are part of the Na’vi.,luyu,agent,0,1
+39,Tsu’teyìl tolìng oer mawlit smarä.,Tsu’tey gave me a half of the prey.,tolìng,agent,1,1
+40,Tsu’teyìl tolìng oer mawlit smarä.,Tsu’tey gave me a half of the prey.,tolìng,patient,1,1
+41,Omum oel teyngta lumpe po holum.,I know why he left.,omum,agent,1,1
+42,Omum oel teyngta lumpe po holum.,I know why he left.,omum,patient,1,1
+43,Tsatsmukel alu Rini molok futa oe ngar muwäpivìntxu. ,Sister Rini over there suggested that I introduce myself. ,molok,agent,1,1
+44,Tsatsmukel alu Rini molok futa oe ngar muwäpivìntxu. ,Sister Rini over there suggested that I introduce myself. ,molok,patient,1,1
+45,Pol ngop frakrr sìkenongit a hìno lu nìhawng.,He always creates excessively detailed examples.,ngop,agent,1,1
+46,Pol ngop frakrr sìkenongit a hìno lu nìhawng.,He always creates excessively detailed examples.,ngop,patient,1,1
+47,Leno lu Loak nìtxan.,Loak is very thorough.,lu,agent,1,1
+48,Längu tìkangkem feyä luke tìno.,Unfortunately there is no attention to detail in their work.,luke,agent,1,1
+49,"Ätxäle si oe pivawm, ngari soaiä ayhapxìtu lu supe?", May I ask who the people in your family are?,ätxäle si,agent,1,1
+50,"Ätxäle si oe pivawm, ngari soaiä ayhapxìtu lu supe?", May I ask who the people in your family are?,ätxäle si,patient,1,1
+51,Sa’nokìl oeyä tsmuket amip nolokx trram., Mom gave birth to my new sister yesterday.,nolokx,agent,1,1
+52,Sa’nokìl oeyä tsmuket amip nolokx trram., Mom gave birth to my new sister yesterday.,nolokx,patient,1,1
+53,Po ‘on si lo’aru fte livam na syaksyuk.,She shapes a totem to look like a syaksyuk.,'on si,agent,1,1
+54,Po ‘on si lo’aru fte livam na syaksyuk.,She shapes a totem to look like a syaksyuk.,'on si,patient,1,1
+55,Ngaru smon fu Tsulte fu Tseli?,Do you know Tsulte or do you know Tseli?,smon,agent,0,1
+56,Ngaru smon fu Tsulte fu Tseli?,Do you know Tsulte or do you know Tseli?,smon,patient,1,1
+57,Vuyin ohel Uniltaronit.,I request the Dreamhunt.,vuyin,agent,0,1
+58,Vuyin ohel Uniltaronit.,I request the Dreamhunt.,vuyin,patient,1,1
+59,Ne tsenge atswawna’ kivä ko.,Let’s go to the forgotten place.,kivä,agent,0,1
+60,Stäpawm moe.,We hear ourselves.,stäpawm,agent,1,1
+61,Stäpawm moe.,We hear ourselves.,stäpawm,patient,1,1
+62,"Lolu kllrikx, ulte tsaw ayweopxur apxa ‘on si.","It was an earthquake, and it formed large waves.",lolu,agent,1,1
+63,"Lolu kllrikx, ulte tsaw ayweopxur apxa ‘on si.","It was an earthquake, and it formed large waves.",'on si,agent,1,1
+64,"Lolu kllrikx, ulte tsaw ayweopxur apxa ‘on si.","It was an earthquake, and it formed large waves.",'on si,patient,1,1
+65,Tsurak Koohùriye ke larmu say nìwotx ke li: tsapo lolopx slele nìdi ulte Koohùri ke tsùn ‘ivìawn mì tal peye.,Ko’ohuri’s skimwing was not completely loyal yet; it panicked and swam in a frenzy and Ko’ohuri could not hold onto its back. ,larmu,agent,1,1
+66,Tsurak Koohùriye ke larmu say nìwotx ke li: tsapo lolopx slele nìdi ulte Koohùri ke tsùn ‘ivìawn mì tal peye.,Ko’ohuri’s skimwing was not completely loyal yet; it panicked and swam in a frenzy and Ko’ohuri could not hold onto its back. ,lolopx,agent,1,1
+67,Tsurak Koohùriye ke larmu say nìwotx ke li: tsapo lolopx slele nìdi ulte Koohùri ke tsùn ‘ivìawn mì tal peye.,Ko’ohuri’s skimwing was not completely loyal yet; it panicked and swam in a frenzy and Ko’ohuri could not hold onto its back. ,slele,agent,1,1
+68,Tsurak Koohùriye ke larmu say nìwotx ke li: tsapo lolopx slele nìdi ulte Koohùri ke tsùn ‘ivìawn mì tal peye.,Ko’ohuri’s skimwing was not completely loyal yet; it panicked and swam in a frenzy and Ko’ohuri could not hold onto its back. ,tsùn,agent,1,1
+69,Tsurak Koohùriye ke larmu say nìwotx ke li: tsapo lolopx slele nìdi ulte Koohùri ke tsùn ‘ivìawn mì tal peye.,Ko’ohuri’s skimwing was not completely loyal yet; it panicked and swam in a frenzy and Ko’ohuri could not hold onto its back. ,tsùn,patient,1,1
+70,"Kuru ftu kuru hùm, tsaheyluti megu, tsurakìl Koohùriti dolìng hifwo. "," The kurus detached, the bond was interrupted, and the skimwing abandoned Ko’ohuri to flee.",hùm,agent,1,1
+71,"Kuru ftu kuru hùm, tsaheyluti megu, tsurakìl Koohùriti dolìng hifwo. "," The kurus detached, the bond was interrupted, and the skimwing abandoned Ko’ohuri to flee.",megu,agent,0,1
+72,"Kuru ftu kuru hùm, tsaheyluti megu, tsurakìl Koohùriti dolìng hifwo. "," The kurus detached, the bond was interrupted, and the skimwing abandoned Ko’ohuri to flee.",megu,patient,1,1
+73,"Kuru ftu kuru hùm, tsaheyluti megu, tsurakìl Koohùriti dolìng hifwo. "," The kurus detached, the bond was interrupted, and the skimwing abandoned Ko’ohuri to flee.",dolìng,agent,1,1
+74,"Kuru ftu kuru hùm, tsaheyluti megu, tsurakìl Koohùriti dolìng hifwo. "," The kurus detached, the bond was interrupted, and the skimwing abandoned Ko’ohuri to flee.",dolìng,patient,1,1
+75,Ayweobìl adur hena Koohùriti neto ka dana laa. , The strong waves carried Ko’ohuri far away. ,laa,agent,1,1
+76,Ayweobìl adur hena Koohùriti neto ka dana laa. , The strong waves carried Ko’ohuri far away. ,laa,patient,1,1
+77,"Pori syeha ftu mesopì herùm, ulte slu sngem meyp. ","The breath was leaving his lungs, and his muscles were tiring.",herùm,agent,1,1
+78,"Pori syeha ftu mesopì herùm, ulte slu sngem meyp. ","The breath was leaving his lungs, and his muscles were tiring.",slu,agent,1,1
+79,Fpìl po san oe tìyerkùp sìk.,"He thought, “I’m about to die.” ",fpìl,agent,1,1
+80,Fpìl po san oe tìyerkùp sìk.,"He thought, “I’m about to die.” ",fpìl,patient,1,1
+81,Tsakrr Koohùril tia tsolea eo sno dampaysyeti.,Then Ko’ohuri surprisingly saw a gill mantle before him.,tsolea,agent,1,1
+82,Tsakrr Koohùril tia tsolea eo sno dampaysyeti.,Then Ko’ohuri surprisingly saw a gill mantle before him.,tsolea,patient,1,1
+83,"Nìfkeytongay, ke tsùn tsivea smusona kawtsengti a sìn tawdew. ","In actual fact, he could see nowhere on the horizon that he recognized.",tsivea,agent,0,1
+84,"Nìfkeytongay, ke tsùn tsivea smusona kawtsengti a sìn tawdew. ","In actual fact, he could see nowhere on the horizon that he recognized.",tsivea,patient,1,1
+85,"Ko’ohuri lu kanu ngian, ulte omum fya’ot a väpewng fte emrivey. "," Ko’ohuri was clever, however, and knew how to look after himself to survive.",lu,agent,1,1
+86,"Ko’ohuri lu kanu ngian, ulte omum fya’ot a väpewng fte emrivey. "," Ko’ohuri was clever, however, and knew how to look after himself to survive.",omum,agent,0,1
+87,"Ko’ohuri lu kanu ngian, ulte omum fya’ot a väpewng fte emrivey. "," Ko’ohuri was clever, however, and knew how to look after himself to survive.",omum,patient,1,1
+88,"Lu mì sponoä kxamtseng tsawla ramtsyìp letskxe, ulte fìtseng Ko’ohuril apxa txeptsengit txula fte tì’awm sivi.","In the middle of the island was a tall rocky hill, and it was here that Ko’ohuri built a large fire pit to set up camp.",lu,agent,1,1
+89,"Lu mì sponoä kxamtseng tsawla ramtsyìp letskxe, ulte fìtseng Ko’ohuril apxa txeptsengit txula fte tì’awm sivi.","In the middle of the island was a tall rocky hill, and it was here that Ko’ohuri built a large fire pit to set up camp.",txula,agent,1,1
+90,"Lu mì sponoä kxamtseng tsawla ramtsyìp letskxe, ulte fìtseng Ko’ohuril apxa txeptsengit txula fte tì’awm sivi.","In the middle of the island was a tall rocky hill, and it was here that Ko’ohuri built a large fire pit to set up camp.",txula,patient,1,1
+91,"Pol hänit ngop ta tanleng afkawnarut fte fayoangit stivä’nì, ulte fasukit a mì ayutraltsyìp tsawn. ","Pol hänit ngop ta tanleng afkawnarut fte fayoangit stivä’nì, ulte fasukit a mì ayutraltsyìp tsawn. ",ngop,agent,1,1
+92,"Pol hänit ngop ta tanleng afkawnarut fte fayoangit stivä’nì, ulte fasukit a mì ayutraltsyìp tsawn. ","He made a net out of peeled bark to catch fish, and gathered berries that were on bushes.",ngop,patient,1,1
+93,"Pol hänit ngop ta tanleng afkawnarut fte fayoangit stivä’nì, ulte fasukit a mì ayutraltsyìp tsawn. ","He made a net out of peeled bark to catch fish, and gathered berries that were on bushes.",tsawn,agent,0,1
+94,"Pol hänit ngop ta tanleng afkawnarut fte fayoangit stivä’nì, ulte fasukit a mì ayutraltsyìp tsawn. ","He made a net out of peeled bark to catch fish, and gathered berries that were on bushes.",tsawn,patient,1,1
+95,Slawnoana tompati pol näk ta ayrìk.,He drank rain poured from leaves.,näk,agent,0,1
+96,Slawnoana tompati pol näk ta ayrìk.,He drank rain poured from leaves.,näk,patient,1,1
+97,Muvea niktsyey lu ftxìlor.,The second wrap was delicious.,lu,agent,1,1
+98,Oe yäpolur.,I washed myself,yäpolur,agent,1,1
+99,Oe yäpolur.,I washed myself,yäpolur,patient,1,1
+100,Fkol oeti srätx.,I'm annoyed,srätx,agent,1,0
+101,Fkol oeti srätx.,I'm annoyed,srätx,patient,1,1
