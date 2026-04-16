@@ -1,0 +1,266 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r tidyverse, warning=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+```{text}
+Артамонова Ксения Олеговна 
+```
+
+# HW5: Базовый анализ категориальных данных
+
+## Данные
+
+В этой работе мы проанализируем распределение ответов на комплименты у молодых носителей арабского языка. 
+Ссылка на статью: Alqarni, S. (2020). A Sociolinguistic Investigation of Compliments and Compliment
+Responses among Young Saudis. Arab World English Journal, 11 (1) 231-252. [https://dx.doi.org/10.24093/awej/vol11no1.18]
+Вам предстоит исследовать данные методами анализа и визуализации номинальных (категориальных) данных.  
+
+```{r data}
+compliments <- read_tsv("https://raw.githubusercontent.com/olesar/2026davR-hse-CL/refs/heads/main/data/compliments.txt", col_names = TRUE) |> as.data.frame()
+```
+
+## Задание 1: Подготовка данных
+
+Дайте имя каждому ряду таблицы сопряженности (с помощью функции `row.names` или `column_to_rownames`). Оставьте в таблице только целочисленные данные. Выведите первые 6 строк таблицы. Проверьте, что таблица не содержит missing data. 
+
+```{r datasummary}
+row.names(compliments) <- compliments$`Compliment responses`
+compliments <- compliments[, c("Male", "Female")] 
+print("Первые 6 строк")
+print(head(compliments))
+print(paste("Есть ли пропуски?", any(is.na(compliments))))
+```
+
+## Задание 2: Таблица сопряженности
+
+2.1. Вычислите маргинальные частоты (суммы по строкам и столбцам).
+
+2.2. Постройте таблицу пропорций (относительных частот в процентах).
+
+```{r task2.1}
+row_totals <- rowSums(compliments)
+print("Маргинальные частоты по строкам (типы ответов):")
+print(row_totals)
+
+# Суммы по столбцам (общее количество ответов по полу)
+col_totals <- colSums(compliments)
+print("Маргинальные частоты по столбцам (пол):")
+print(col_totals)
+
+# Общая сумма наблюдений
+grand_total <- sum(compliments)
+print(paste("Общее количество наблюдений:", grand_total))
+
+compliments_with_margins <- compliments |> 
+  mutate(Total = rowSums(across(everything())))
+
+compliments_with_margins <- rbind(
+  compliments_with_margins,
+  Total = colSums(compliments_with_margins)
+)
+
+print(compliments_with_margins)
+```
+```{r task2.2}
+
+# Пропорции от общей суммы
+prop_table <- prop.table(as.matrix(compliments)) * 100
+print("Таблица пропорций от общего числа наблюдений (%):")
+print(round(prop_table, 2))
+
+# Пропорции по строкам
+prop_by_row <- prop.table(as.matrix(compliments), margin = 1) * 100
+print("Проценты по строкам (распределение пола внутри типа ответа):")
+print(round(prop_by_row, 2))
+
+# Пропорции по столбцам
+prop_by_col <- prop.table(as.matrix(compliments), margin = 2) * 100
+print("Проценты по столбцам (распределение ответов внутри пола):")
+print(round(prop_by_col, 2))
+
+# Таблица пропорций с маргиналиями
+prop_values <- prop.table(as.matrix(compliments)) * 100
+
+prop_with_col_total <- cbind(prop_values, Total = rowSums(prop_values))
+
+prop_with_margins <- rbind(prop_with_col_total, Total = colSums(prop_with_col_total))
+
+print(round(prop_with_margins, 2))
+
+```
+
+### Задание 3: Математическое ожидание
+
+3.1. Для вашей таблицы сопряженности вычислите ожидаемые значения (expected values) для каждой ячейки.
+
+*Напоминание: Ожидаемое значение для ячейки вычисляется по формуле:*
+$$E_{ij} = \frac{(\text{сумма строки } i) \times (\text{сумма столбца } j)}{\text{общее количество наблюдений}}$$
+
+3.2. Сравните наблюдаемые (observed) и ожидаемые (expected) значения. В каких ячейках наблюдаемые значения существенно отличаются от ожидаемых?
+
+```{r task3}
+expected_manual <- outer(row_totals, col_totals) / grand_total
+rownames(expected_manual) <- rownames(compliments)
+colnames(expected_manual) <- colnames(compliments)
+print(round(expected_manual, 2))
+
+observed <- as.matrix(compliments)
+diff_table <- observed - expected_manual
+abs_diff <- abs(diff_table)
+rel_diff <- (diff_table / expected_manual) * 100
+comparison <- data.frame(
+  Response = rownames(compliments),
+  Obs_Male = observed[, "Male"],
+  Exp_Male = round(expected_manual[, "Male"], 2),
+  Diff_Male = round(diff_table[, "Male"], 2),
+  RelDiff_Male_pct = round(rel_diff[, "Male"], 1),
+  Obs_Female = observed[, "Female"],
+  Exp_Female = round(expected_manual[, "Female"], 2),
+  Diff_Female = round(diff_table[, "Female"], 2),
+  RelDiff_Female_pct = round(rel_diff[, "Female"], 1)
+)
+comparison
+```
+```{r}
+expected <- chisq.test(compliments, correct = FALSE)$expected
+observed <- as.matrix(compliments)
+std_residuals <- (observed - expected) / sqrt(expected)
+std_residuals
+```
+
+```{text}
+Наибольшие отклонения фиксируются в ячейках: Praise Upgrade, Appreciation token
+```
+
+## Задание 4: Статистические гипотезы
+
+Сформулируйте нулевую и альтернативную гипотезы для вашего исследования.
+
+**Шаблон формулировки:**
+- H₀: Выбор X не связан с Y
+- H₁: Выбор X связан с Y
+
+```{text}
+Выбор стратегии ответа на комплимент не связан с полом респондента.
+Выбор стратегии ответа на комплимент связан с полом респондента.
+```
+
+## Задание 5: Выбор статистического теста
+
+Выберите подходящий тест (хи-квадрат Пирсона или точный тест Фишера) и обоснуйте свой выбор.
+
+5.1. Проверьте допущения для применения теста хи-квадрат Пирсона.
+
+```{r test-selection}
+chi_test <- chisq.test(compliments, correct = FALSE)
+expected <- chi_test$expected
+cells_below_5 <- sum(expected < 5)
+total_cells <- length(expected)
+percent_below_5 <- (cells_below_5 / total_cells) * 100
+min_expected <- min(expected)
+cat(sprintf("Всего ячеек: %d\n", total_cells))
+cat(sprintf("Ячейки с E < 5: %d (%.1f%%)\n", cells_below_5, percent_below_5))
+cat(sprintf("Минимальная ожидаемая частота: %.2f\n", min_expected))
+cat(sprintf("Общий объём выборки: %d\n", sum(compliments)))
+```
+
+5.2. На основе проверки допущений выберите подходящий тест:
+   - **Тест хи-квадрат Пирсона**
+   - **Точный тест Фишера**
+
+```{text}
+Тест хи-квадрат Пирсона:
+- 0 ячеек имеют ожидаемую частоту
+- Минимальная ожидаемая частота = 9.42 ≥ 1
+- Объём выборки (N = 480) достаточен для асимптотического приближения
+```
+
+## Задание 6: Проведение теста
+
+Проведите выбранный статистический тест и интерпретируйте результаты.
+
+```{r statistical-test}
+chi_test <- chisq.test(compliments, correct = FALSE)
+cat(sprintf("Статистика χ² = %.3f\n", chi_test$statistic))
+cat(sprintf("Степени свободы (df) = %d\n", chi_test$parameter))
+cat(sprintf("p-value = %.4f\n", chi_test$p.value))
+std_res <- chi_test$stdres
+std_res
+```
+
+```{text}
+# Статистическая интерпретация:
+-  χ²(5) = 11.130, p = 0.0489
+- При уровне значимости α = 0.05: p-value (0.0489) < α 
+- Отклоняем нулевую гипотезу H₀
+- Вывод: Обнаружена статистически значимая связь между полом респондента и выбором стратегии ответа на комплимент
+
+- Стандартизированные остатки: две пары ячеек превышают порог |r| > 2:
+ Appreciation token: |r| = 2.83
+ Praise Upgrade: |r| = 2.40
+Это указывает, что именно эти категории вносят основной вклад в χ².
+
+# Содержательная интерпретация:
+- В выборке молодых носителей арабского языка обнаружена статистически значимая, но слабая связь между полом и стратегией ответа на комплимент
+- Мужчины чаще используют "Appreciation token" (простое принятие), женщины чаще используют "Praise Upgrade" (усиление комплимента)
+- Практический вывод: Гендер влияет на выбор коммуникативной стратегии: мужчины склонны к минималистичным, прямым ответам, женщины чаще используют развёрнутые, более эмпатичные выражения.
+```
+
+### Задание 7: Вычисление V Крамера
+
+7.1. Вычислите величину эффекта с помощью V Крамера (Cramer's V).
+
+```{r task7}
+N <- sum(compliments)
+min_dim <- min(nrow(compliments) - 1, ncol(compliments) - 1)
+cramers_v <- sqrt(chi_test$statistic / (N * min_dim))
+cramers_v
+```
+
+7.2. Интерпретируйте полученное значение V:
+   - V < 0.2 - слабая связь
+   - 0.2 ≤ V < 0.5 - умеренная связь  
+   - V ≥ 0.5 - сильная связь
+
+```{text}
+Размер эффекта Крамера 0.1522774 (V < 0.2 - слабая связь), что означает слабую связь между X и Y 
+```
+
+### Задание 8: Визуализация
+
+8.1. Постройте:
+  - мозаичный график (mosaic plot) для вашей таблицы сопряженности, используя функцию `mosaicplot()` из базового R или функцию `mosaic()` из пакета `vcd`  
+  - ИЛИ тепловую карту (heatmap) для таблицы сопряженности, используя функцию `balloonplot()` из пакета `gplots`  
+
+8.2. Настройте цветовую схему для лучшей читаемости, подпишите оси и добавьте заголовок графика.
+
+```{r task8}
+library(reshape2)
+library(ggplot2)
+
+compliments_long <- compliments |> 
+  as.data.frame() |> 
+  rownames_to_column(var = "Response") |> 
+  melt(id.vars = "Response", 
+       variable.name = "Gender", 
+       value.name = "Count")
+
+ggplot(compliments_long, aes(x = Gender, y = Response, fill = Count)) +
+  geom_tile(color = "white", linewidth = 0.8) +
+  geom_text(aes(label = Count), color = "white", fontface = "bold", size = 4) +
+  scale_fill_gradient(low = "#74C49B", high = "#1B4965", name = "Частота") +
+  labs(title = "Распределение стратегий ответов на комплименты",
+       x = "Пол респондента", y = "Тип ответа") +
+  theme_minimal()
+
+
+```
+
+8.3. Проанализируйте график: какие комбинации значений переменных встречаются чаще/реже ожидаемого?
+
+
+```

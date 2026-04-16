@@ -1,0 +1,489 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+Домашнее задание сдается на почту в виде двух файлов, Rmd и html (или в виде тетрадки, если вы выполняли задание в колабе). Чтобы облегчить проверку домашнего задания, мы просим вас писать код в блоки для кода на R, например,
+
+```{r example}
+# YOUR CODE HERE 
+# (do not forget to remove #'s and all this text so that we could run the code)
+```
+
+и текст в блоки для текста. Пожалуйста, впишите ниже ваше имя и фамилию:
+
+```{txt name}
+     Ксения Артамонова  
+```
+
+Перед сдачей домашнего задания рекомендуем запустить `Run All` или сгенерировать html-страницу с помощью `Knit`, чтобы убедиться, что в финальной версии весь ваш код будет запускаться без проблем. Дисклеймер - в зависимости от среды, в которой вы выполняете задания, округление непрерывных значений может производиться несколько по-разному. В заданиях ниже не будут оцениваться расхождения с образцом в количестве знаков после запятой в выдаче. Аналогично, несколько иначе могут выглядеть шрифты в таблицах и графиках, на такие расхождения тоже не стоит обращать внимания, если нет специального требования в задании. И не стесняйтесь задавать вопросы по домашнему заданию в телеграм-группе.
+
+## 1. Универсальные лингвические иерархии: порядок прилагательных в новогреческом языке (стандартный и кипрский диалекты)  
+
+Данные (социолингвистическая анкета и результаты эксперимента) взяты, с адаптацией, из исследования:
+Leivada, Evelina; Westergaard, Marit, 2019, [Universal linguistic hierarchies are not innately wired](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6679903/pdf/peerj-07-7438.pdf). PeerJ, v.7.
+
+Источник данных: репозиторий TROLLing:
+Leivada, Evelina; Westergaard, Marit, 2019, "Replication Data for: Universal linguistic hierarchies are not innately wired", https://doi.org/10.18710/NTLLUF, DataverseNO, V1
+
+#### Конструкции с двумя прилагательными
+
+В английском языке порядок двух прилагательных в таких фразах, как:
+```
+ a big black bag # хорошо
+*a black big bag # неприемлемо, грамматически неправильно или семантически аномально
+```
+определяется семантическим классом прилагательного (например, прилагательное «цвета» ближе к существительному, чем прилагательное «размера»).
+
+Синтаксическая иерархия близости к существительному в универсальной грамматике Хомского предполагает следующий порядок, который считается врожденным и универсальным (= действительным для всех языков).
+
+```
+Subjective Comment > Evidential > Size > Length
+> Height > Speed > Depth > Width > Temperature > Wetness > Age
+> Shape > Color > Nationality/Origin > Material 
+# (на основе Scott, 2002: 114)
+```
+
+Цель исследования Leivada & Westergaard — определить, что происходит, когда люди воспринимают примеры с порядком, который либо соответствует иерархии, либо нарушает ее.
+
+#### Метод
+
+В первом эксперименте 140 нейротипичных взрослых носителей языка выполнили задание с выбором на время (a timed forced choice task), в котором использовались стимулы, представляющие комбинацию двух прилагательных и конкретного существительного (например, *Έπια ένα στενό ισπανικό βρασιόλι.* 'I bought a narrow Spanish bracelet.'). Были собраны данные двух типов:
+
+(i) суждения о приемлемости по 3-балльной шкале Ликерта:
+     1. неправильно,
+     2. ни правильно, ни неправильно,
+     3. правильный;
+
+(ii) время реакции (RT).
+
+В стимулах использовались три условия:  
+1. прилагательное размера > прилагательное национальности, 
+2. прилагательное цвета > прилагательное формы,  
+3. прилагательное субъективного комментария > прилагательное материала. 
+
+Каждое условие предъявлялось в двух вариантах порядка слов. При конгруэнтном порядке расположение пары прилагательных соответствовало тому, что диктует универсальная иерархия. В неконгруэнтном порядке порядок был обратным, поэтому иерархия была нарушена.
+
+Во втором эксперименте 30 билингвов (носителей стандартного и кипрского греческого) были протестированы на обоих диалектах, по 36 наблюдений на участника, по 18 на каждый вариант.
+
+В обоих экспериментах использовались два типа [филлеров] (https://www.hlp.rochester.edu/resources/BCS152-Tutorial/Fillers.html): FillerAcceptable и FillerUnacceptable — предложения, которые включали правильно построенные и неграмматические структуры, соответственно. В обеих задачах соотношение наполнителей к реальным тестовым структурам составляло 2:1. Смотри также [ключи к данным](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6679903/bin/peerj-07-7438-s001.txt).
+
+#### Данные
+
+Загрузите данные из [файла](https://raw.githubusercontent.com/olesar/2025dav4compling/refs/heads/main/data/greek-word-order-mono-acceptability-coded-rt.txt") в переменную `mono`, переведя строковые данные в факторы. В переменной `mono_socio` сохраните данные социолингвистической [анкеты](https://raw.githubusercontent.com/olesar/2025dav4compling/refs/heads/main/data/greek-word-order-mono_socio.txt), также переведя строковые данные в факторы.
+
+```{r loaddata}
+library(tidyverse)
+
+mono_url <- "https://raw.githubusercontent.com/olesar/2025dav4compling/refs/heads/main/data/greek-word-order-mono-acceptability-coded-rt.txt"
+
+mono <- read.table(
+  file = mono_url,
+  header = TRUE,
+  sep = ";",
+  stringsAsFactors = FALSE,
+  quote = "",
+  comment.char = "",
+  na.strings = c("NA", ""),
+  fileEncoding = "UTF-8"
+)
+
+mono <- mono %>%
+  mutate(
+    ParticipantID = factor(ParticipantID),
+    TypeOfQuestion = factor(TypeOfQuestion),
+    TypeOfStimuli = factor(TypeOfStimuli),
+    WordOrder = factor(WordOrder),  
+    ResponseAcceptabilityJudgement = factor(
+      ResponseAcceptabilityJudgement,
+      levels = c("Wrong", "Neither", "Correct"),
+      ordered = TRUE),
+    RT = as.numeric(RT))
+
+socio_url <- "https://raw.githubusercontent.com/olesar/2025dav4compling/refs/heads/main/data/greek-word-order-mono_socio.txt"
+
+mono_socio_raw <- read.table(
+  file = socio_url,
+  header = TRUE,
+  sep = ";",
+  stringsAsFactors = FALSE,
+  quote = "",
+  comment.char = "",
+  na.strings = c("NA", ""))
+
+mono_socio <- mono_socio_raw %>%
+  mutate(
+    ParticipantID = factor(ParticipantID),
+    TypeOfQuestion = factor(TypeOfQuestion),
+    QuestionCategory = factor(QuestionCategory),
+    Responce = factor(Responce)) %>%
+  pivot_wider(
+    id_cols = ParticipantID,
+    names_from = QuestionCategory,
+    values_from = Responce) %>%
+  rename(
+    sex = sex,
+    education = education,
+    handedness = handedness,
+    age = age,
+    country1 = country1,
+    country2 = country2) %>%
+  mutate(
+    sex = factor(sex),
+    education = factor(education),
+    handedness = factor(handedness),
+    country1 = factor(country1),
+    country2 = factor(country2),
+    age = as.numeric(as.character(age)))
+
+```
+```{r}
+mono
+```
+```{r}
+mono_socio
+```
+## Описание данных
+
+### 1.1
+
+Взглянем на данные `mono_socio`, чтобы ответить на следующие вопросы о социолингвистических характеристиках испытуемых: 
+
+1. Сколько участников указано в датафрейме?
+
+2. Сколько из них женщин и мужчин?
+
+3. Какие уровни образования указаны в датафрейме?
+
+4. Сколько участников каждого уровня образования?
+
+5. Сколько леворуких и праворуких участников?
+
+Напишите код, представляющий ответы на эти вопросы в виде одной или нескольких таблиц. 
+Используйте функции из пакета tidyverse: `filter`, `group_by`, `count` and `distinct`. 
+(Еще один способ - использовать `pivot_wider`.)
+
+```{r 1.1}
+# Сколько участников указано в датафрейме? 
+n_participants <- mono_socio %>%
+  distinct(ParticipantID) %>%
+  count() %>%
+  pull(n)
+
+n_participants
+```
+```{r}
+# Сколько из них женщин и мужчин?
+gender_table <- mono_socio %>%
+  filter(!is.na(sex)) %>%
+  count(sex, name = "Число_участников") %>%
+  rename(Пол = sex)
+
+gender_table
+```
+```{r}
+#  Какие уровни образования указаны в датафрейме?
+education_levels <- mono_socio %>%
+  filter(!is.na(education)) %>%
+  distinct(education) %>%
+  pull(education)
+
+education_levels
+```
+```{r}
+# Сколько участников каждого уровня образования?
+education_table <- mono_socio %>%
+  filter(!is.na(education)) %>%
+  count(education, name = "Число_участников") %>%
+  arrange(desc(Число_участников)) %>%
+  rename(Образование = education)
+
+education_table
+
+```
+```{r}
+# Сколько леворуких и праворуких участников?
+handedness_table <- mono_socio %>%
+  filter(!is.na(handedness)) %>%
+  count(handedness, name = "Число_участников") %>%
+  rename(Доминантная_рука = handedness)
+
+handedness_table
+```
+### 1.2
+
+Сравните полученную информацию с данными из таблицы 1 в [статье](https://pmc.ncbi.nlm.nih.gov/articles/PMC6679903/pdf/peerj-07-7438.pdf). Можно ли сказать, что данные, которые вы загрузили по ссылке, позволяют воспроизвести результаты этого исследования?
+
+```{txt 1.2}
+В целом, да, воспроизвести можно, тк выборка такая же, распределение по полу совпадает, общая структура данных совпадает.
+```
+
+
+### 1.3
+
+Постройте график плотности, который показывает распределение RT в эксперименте в целом (для всех участников и условий. Отобразите красным пунктиром линию, показывающую среднее значение RT. 
+
+```{r 1.3}
+library(ggplot2)
+
+mono_clean <- mono %>%
+  filter(!is.na(RT))
+
+mean_rt <- mean(mono_clean$RT, na.rm = TRUE)
+
+rt_density_plot <- ggplot(mono_clean, aes(x = RT)) +
+  geom_density(
+    fill = "skyblue",      
+    color = "steelblue",
+    alpha = 0.6) +
+  geom_vline(
+    xintercept = mean_rt,
+    color = "red",
+    linetype = "dashed",
+    linewidth = 0.8) +
+  annotate("text",
+    x = mean_rt,
+    y = Inf,
+    label = paste("Mean RT =", round(mean_rt), "ms"),
+    vjust = 1.5,           # вертикальное выравнивание
+    hjust = -0.1,          # горизонтальное выравнивание
+    color = "red",
+    fontface = "bold",
+    size = 4) +
+  labs(
+    title = "Распределение времени реакции (RT) в эксперименте",
+    x = "Время реакции (мс)",
+    y = "Плотность",
+    caption = "Красная пунктирная линия - среднее значение RT") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    plot.subtitle = element_text(size = 11, hjust = 0.5, color = "gray40"),
+    plot.caption = element_text(size = 9, color = "gray50"),
+    axis.title = element_text(face = "bold"),
+    axis.text = element_text(size = 10),
+    panel.grid.minor = element_blank()) +
+  coord_cartesian(xlim = c(0, 8000))
+
+rt_density_plot
+```
+
+### 1.4
+
+Верно ли, что данные времени реакции нормально распределены? Есть ли в распределении длинные левые или правые хвосты?? 
+
+```{txt 1.4}
+Нет, распределение отличается от нормального. Присутствует левый динный хвост и правый короткий.
+```
+
+### 1.5
+
+Преобразуйте данные с помощью функциии логарифма (RTlog = log10(RT)).
+
+```{r 1.5}
+mono_clean_lg <- mono %>%
+  filter(!is.na(RT), RT > 0) %>%
+  mutate(
+    RT_log = log10(RT))
+
+mean_rt_log <- mean(mono_clean_lg$RT_log, na.rm = TRUE)
+geo_mean_rt <- 10^mean_rt_log 
+```
+
+### 1.6
+
+Создайте график, похожий на 1.3, но показывающий логарифимированные значения RT. 
+
+```{r 1.6}
+rt_log_density_plot <- ggplot(mono_clean_lg, aes(x = RT_log)) +
+  geom_density(
+    fill = "skyblue",     
+    color = "steelblue",       
+    alpha = 0.6) +
+  geom_vline(
+    xintercept = mean_rt_log,
+    color = "red",
+    linetype = "dashed",
+    linewidth = 0.8) +
+  annotate(
+    "text",
+    x = mean_rt_log,
+    y = Inf,
+    label = paste0("Mean log10(RT) = ", round(mean_rt_log, 3), 
+                   "\n(≈ ", round(geo_mean_rt), " ms)"),
+    vjust = 1.5,
+    hjust = -0.1,
+    color = "red",
+    fontface = "bold",
+    size = 3.5) +
+  labs(
+    title = "Распределение логарифмированного времени реакции",
+    x = expression(log[10]~"(время реакции, мс)"),
+    y = "Плотность",
+    caption = "Красная пунктирная линия — среднее значение log₁₀(RT)") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    plot.subtitle = element_text(size = 11, hjust = 0.5, color = "gray40"),
+    plot.caption = element_text(size = 9, color = "gray50"),
+    axis.title = element_text(face = "bold"),
+    axis.text = element_text(size = 10),
+    panel.grid.minor = element_blank())
+
+rt_log_density_plot
+```
+
+### 1.7
+
+Отфильтруйте выбросы:  
+* автоматические ответы, время реакции на которые меньше 600 ms (будем полагать, что кнопка была нажата слишком быстро, еще до того, как у участника было достаточно времени рассмотреть показанный ему стимул и принять решение);  
+* ответы, в которых RTlog отличается от среднего значения RTlog более, чем на 3 стандартных отклонения (SD);  
+* филлеры (как приемлемые, так и неприемлемые).  
+Сохраните очищенные от выбросов данные в переменную `mono1`.
+
+```{r 1.7}
+mono1 <- mono %>%
+  filter(!is.na(RT), RT > 0) %>%
+  mutate(RT_log = log10(RT)) %>%
+  filter(RT >= 600) %>%
+  filter(!TypeOfStimuli %in% c("FillerAcceptable", "FillerUnacceptable"))
+
+rt_log_mean <- mean(mono1$RT_log, na.rm = TRUE)
+rt_log_sd <- sd(mono1$RT_log, na.rm = TRUE)
+
+mono1 <- mono1 %>%
+  filter(
+    RT_log >= (rt_log_mean - 3 * rt_log_sd),
+    RT_log <= (rt_log_mean + 3 * rt_log_sd))
+
+mono1
+
+```
+
+### 1.8 Тест на разницу средних
+
+Проанализируйте разницу в среднем значении RTlog у двух групп (порядок слов в стимуле: конгруэнтный vs неконгруэнтный). Сформулируйте нулевую и альтернативную гипотезу, аргументируйте, какой тип t-test'а или его аналогов следует применить, сделайте статистический и содержательный вывод о значимости различия.  
+
+```{txt 1.8}
+Нулевая гипотеза: Среднее значение log10(RT) не различается между конгруэнтными и неконгруэнтными стимулами.
+Альтернативная гипотеза: Среднее значение log10(RT) различается между условиями.
+
+Нужно агрегировать данные на уровне ParticipantID - WordOrder. Известно, что каждый участник представлен в обоих условиях -> нужен парный t-тест Стьюдента (наблюдения учатников независимы, отсуствуют экстремальные выбросы). Зависимая переменная: RT_log (непрерывная, интервальная шкала, данные нормализованы)
+
+Вывод:
+Разница в среднем времени реакции между конгруэнтными 
+и неконгруэнтными стимулами статистически значима. 
+Конгруэнтный порядок слов обрабатывается в среднем быстрее, 
+что согласуется с гипотезой о влиянии универсальной иерархии 
+прилагательных на скорость языковой обработки.
+```
+
+```{r 1.8a}
+rt_by_participant <- mono1 %>%
+  filter(WordOrder %in% c("Congruent", "Incongruent")) %>%  
+  group_by(ParticipantID, WordOrder) %>%
+  summarise(
+    mean_RT_log = mean(RT_log, na.rm = TRUE),
+    n_trials = n(),
+    .groups = "drop"
+  )
+
+balance_check <- rt_by_participant %>%
+  count(ParticipantID) %>%
+  count(n, name = "num_conditions")
+
+balance_check
+```
+```{r 1.8b}
+desc_stats <- rt_by_participant %>%
+  group_by(WordOrder) %>%
+  summarise(
+    N_participants = n_distinct(ParticipantID),
+    Mean_RT_log = mean(mean_RT_log),
+    SD_RT_log = sd(mean_RT_log),
+    SE_RT_log = SD_RT_log / sqrt(N_participants),
+    Mean_RT_ms = mean(10^mean_RT_log),
+    .groups = "drop") %>%
+  mutate(
+    CI_lower = Mean_RT_log - qt(0.975, df = N_participants - 1) * SE_RT_log,
+    CI_upper = Mean_RT_log + qt(0.975, df = N_participants - 1) * SE_RT_log)
+
+desc_stats
+```
+```{r 1.8c}
+diff_stats <- desc_stats %>%
+  pivot_wider(names_from = WordOrder, values_from = c(Mean_RT_log, SD_RT_log, Mean_RT_ms)) %>%
+  mutate(
+    Diff_log = Mean_RT_log_Congruent - Mean_RT_log_Incongruent,
+    Diff_ms = Mean_RT_ms_Congruent - Mean_RT_ms_Incongruent)
+
+diff_stats
+```
+```{r 1.8d}
+diff_data <- rt_by_participant %>%
+  pivot_wider(
+    id_cols = ParticipantID,
+    names_from = WordOrder,
+    values_from = mean_RT_log) %>%
+  mutate(
+    diff = Congruent - Incongruent  # отрицательное = конгруэнтный быстрее
+  ) %>%
+  filter(!is.na(Congruent), !is.na(Incongruent))  # только полные пары
+
+diff_data
+shapiro_diff <- shapiro.test(diff_data$diff) #  Нет оснований отвергать нормальность разностей
+```
+```{r 1.8e}
+diff_plots <- ggplot(diff_data, aes(sample = diff)) +
+  stat_qq(color = "steelblue") +
+  stat_qq_line(color = "red", linetype = "dashed") +
+  labs(
+    title = "Q-Q plot разностей (Congruent − Incongruent)",
+    x = "Теоретические квантили",
+    y = "Выборочные квантили") +
+  theme_minimal()
+
+diff_plots
+```
+```{r 1.8f}
+t_test_result <- t.test(
+    diff_data$Congruent,
+    diff_data$Incongruent,
+    paired = TRUE,
+    alternative = "two.sided",
+    conf.level = 0.95)
+    
+t_test_result
+```
+### 1.9
+
+ANOVA. Проанализируйте разницу в среднем значении RTlog, сгруппировав данные по трем условиям 
+(прилагательное размера > прилагательное национальности, прилагательное цвета > прилагательное формы, прилагательное субъективного комментария > прилагательное материала) и по участнику. Сформулируйте нулевую и альтернативную гипотезу, аргументируйте, какой тип дисперсионного анализа следует применить, сделайте статистический и содержательный вывод о значимости различия. Это задание выполняется только для ответов при порядке слов Incongruent.  
+
+```{txt 1.9}
+YOUR TEXT HERE
+
+```
+
+```{r 1.9a}
+#YOUR CODE HERE
+```
+
+### 1.10 Post-hoc тест
+
+Примените TukeyHSD тест, чтобы выяснить, какие конкретно пары условий TypeOfStimuli отличаются друг от друга по среднему значению RTlog.  
+Это задание, аналогично, выполняется только для ответов при порядке слов Incongruent.  
+
+```{r 1.10}
+#YOUR CODE HERE
+```
+
+Запишите ниже интерпретацию post-hoc теста.  
+
+```{txt 1.10a}
+YOUR TEXT HERE
+
+```
